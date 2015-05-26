@@ -1,7 +1,8 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Socket.IO chat</title>
+<head>
+    <meta charset="UTF-8">
+    <title>Node Realtime Experiment</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
@@ -12,24 +13,26 @@
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
-      $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
+      document.querySelector('form').addEventListener("submit",function(e){
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        socket.emit('chat message', document.querySelector('#m').value);
+        document.querySelector('#m').value = ' ';
         return false;
       });
       socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(msg));
-      });
+        document.querySelector('#messages').innerHTML += "<li>" + msg + "</li>";
+      }); 
     </script>
-  </body>
+</body>
 </html>
