@@ -5,11 +5,11 @@ var io = require('socket.io')(http);
 
 app.set('port', (process.env.PORT || 3000));
 
-app.get('/', function (req,res) {
-    res.sendFile(__dirname + '/index.html');
-});
+app.use("/", express.static(__dirname + '/public'));
 
-app.use("/assets", express.static(__dirname + '/assets'));
+app.get('/', function (req,res) {
+    res.sendFile(__dirname + '/public/index.html');
+});
 
 io.on('connection', function(socket){
     console.log("Someone Connected");
