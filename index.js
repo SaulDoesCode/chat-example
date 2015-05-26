@@ -8,8 +8,6 @@ app.get('/', function (req,res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-app.use('/public', express.static(__dirname + '/public'));
-
 io.on('connection', function(socket){
     console.log("Someone Connected");
     socket.on('chat message', function(msg){
@@ -17,7 +15,7 @@ io.on('connection', function(socket){
     });  
 });
 
-socket.on('disconnect', function(msg) {
+io.on('disconnect', function(msg) {
     console.log("Someone Disconnected");
 });
 
